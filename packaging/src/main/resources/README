@@ -1,0 +1,5 @@
+In case of you want to setup SAML2 with external IDP using REST callback. You will need to:
+- Copy idp-sig.war to $PLATFORM_IDP_HOME/standalone/deployments
+- Copy and merge idp-sig-module/module folder with $PLATFORM_IDP_HOME/module
+
+Please read more at: https://github.com/exo-addons/saml2-addon#setup-with-external-idp-using-rest-callback

@@ -75,6 +75,11 @@
       </dependency>
       <dependency>
         <groupId>org.gatein.sso</groupId>
+        <artifactId>sso-saml-plugin</artifactId>
+        <version>${org.gatein.sso.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.gatein.sso</groupId>
         <artifactId>sso-packaging</artifactId>
         <version>${org.gatein.sso.version}</version>
         <type>zip</type>
@@ -87,6 +92,11 @@
       <dependency>
         <groupId>org.gatein.portal</groupId>
         <artifactId>exo.portal.component.web.sso.agents-configs</artifactId>
+        <version>${exogtn.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.gatein.portal</groupId>
+        <artifactId>exo.portal.component.web.sso.saml</artifactId>
         <version>${exogtn.version}</version>
       </dependency>
       <dependency>

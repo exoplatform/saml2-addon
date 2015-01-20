@@ -115,7 +115,7 @@
               <goal>single</goal>
             </goals>
             <configuration>
-              <finalName>saml2-plugin</finalName>
+              <finalName>saml-plugin-jboss</finalName>
               <appendAssemblyId>false</appendAssemblyId>
               <descriptors>
                 <descriptor>src/main/assemblies/exo-saml-plugin.xml</descriptor>

@@ -40,10 +40,6 @@
     </dependency>
     <dependency>
       <groupId>org.gatein.sso</groupId>
-      <artifactId>sso-integration</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.gatein.sso</groupId>
       <artifactId>sso-auth-callback</artifactId>
     </dependency>
     <dependency>

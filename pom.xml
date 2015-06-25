@@ -50,8 +50,8 @@
     <!-- **************************************** -->
     <!-- Dependencies versions -->
     <!-- **************************************** -->
-    <org.exoplatform.depmgt.version>10-SNAPSHOT</org.exoplatform.depmgt.version>
-    <exogtn.version>4.2.x-PLF-SNAPSHOT</exogtn.version>
+    <org.exoplatform.depmgt.version>10</org.exoplatform.depmgt.version>
+    <exogtn.version>4.2.0-PLF</exogtn.version>
     <org.gatein.sso.version>1.3.1.Final</org.gatein.sso.version>
     <version.picketlink.fed>2.1.4.Final</version.picketlink.fed>
   </properties>

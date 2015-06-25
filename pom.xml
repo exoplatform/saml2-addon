@@ -36,9 +36,9 @@
   <description>The SAML2 SSO add-on parent POM</description>
 
   <scm>
-    <connection>scm:git:git://github.com/exo-addons/saml2-addon.git</connection>
-    <developerConnection>scm:git:git@github.com:exo-addons/saml2-addon.git</developerConnection>
-    <url>https://github.com/exo-addons/saml2-addon</url>
+    <connection>scm:git:git://github.com/exoplatform/saml2-addon.git</connection>
+    <developerConnection>scm:git:git@github.com:exoplatform/saml2-addon.git</developerConnection>
+    <url>https://github.com/exoplatform/saml2-addon</url>
     <tag>HEAD</tag>
   </scm>
 

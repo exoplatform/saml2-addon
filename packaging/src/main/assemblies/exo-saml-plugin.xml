@@ -30,7 +30,7 @@
   <fileSets>
     <fileSet>
       <useDefaultExcludes>false</useDefaultExcludes>
-      <directory>${project.build.directory}/sso-packaging.zip/gatein-sso-1.3.1.Final/saml</directory>
+      <directory>${project.build.directory}/sso-packaging.zip/gatein-sso-${org.gatein.sso.version}/saml</directory>
       <outputDirectory>/</outputDirectory>
       <includes>
         <include>**/*</include>

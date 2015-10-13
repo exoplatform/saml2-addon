@@ -65,11 +65,6 @@
       </dependency>
       <dependency>
         <groupId>org.gatein.sso</groupId>
-        <artifactId>sso-agent</artifactId>
-        <version>${org.gatein.sso.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.gatein.sso</groupId>
         <artifactId>sso-saml-plugin</artifactId>
         <version>${org.gatein.sso.version}</version>
       </dependency>

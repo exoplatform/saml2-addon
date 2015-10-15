@@ -38,8 +38,8 @@
     </fileSet>
     <fileSet>
       <useDefaultExcludes>false</useDefaultExcludes>
-      <directory>${project.basedir}/src/main/resources</directory>
-      <outputDirectory>/</outputDirectory>
+      <directory>${project.basedir}/src/main/resources/idp-sig-module</directory>
+      <outputDirectory>/idp-sig-module</outputDirectory>
       <includes>
         <include>**/*</include>
       </includes>
@@ -50,7 +50,9 @@
       <useProjectArtifact>false</useProjectArtifact>
       <outputDirectory>/idp-sig-module/modules/org/picketlink/gatein</outputDirectory>
       <includes>
-        <include>org.picketlink:picketlink-core</include>
+        <include>org.picketlink:picketlink-common</include>
+        <include>org.picketlink:picketlink-config</include>
+        <include>org.picketlink:picketlink-federation</include>
         <include>org.picketlink.distribution:picketlink-jbas7</include>
       </includes>
     </dependencySet>

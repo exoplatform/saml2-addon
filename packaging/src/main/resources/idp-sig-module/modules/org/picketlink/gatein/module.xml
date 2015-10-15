@@ -1,8 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <module xmlns="urn:jboss:module:1.0" name="org.picketlink" slot="gatein">
   <resources>
-    <resource-root path="picketlink-core-2.1.4.Final.jar"/>
-    <resource-root path="picketlink-jbas7-2.1.4.Final.jar"/>
+    <resource-root path="picketlink-common-2.5.3.Final.jar"/>
+    <resource-root path="picketlink-config-2.5.3.Final.jar"/>
+    <resource-root path="picketlink-federation-2.5.3.Final.jar"/>
+    <resource-root path="picketlink-jbas7-2.5.3.Final.jar"/>
   </resources>
   <dependencies>
     <module name="javax.security.auth.message.api"/>

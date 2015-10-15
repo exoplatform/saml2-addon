@@ -36,13 +36,23 @@
         <include>saml-plugin-jboss.zip</include>
       </includes>
     </fileSet>
+    <fileSet>
+      <useDefaultExcludes>false</useDefaultExcludes>
+      <directory>${project.basedir}/src/main/resources/exo-saml2-config</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+    </fileSet>
   </fileSets>
   <dependencySets>
     <dependencySet>
       <useProjectArtifact>false</useProjectArtifact>
       <outputDirectory>/lib</outputDirectory>
       <includes>
-        <include>org.picketlink:picketlink-core</include>
+        <include>org.picketlink:picketlink-common</include>
+        <include>org.picketlink:picketlink-config</include>
+        <include>org.picketlink:picketlink-federation</include>
         <include>org.picketlink.distribution:picketlink-jbas7</include>
         <include>org.exoplatform.addons.sso:saml-configs</include>
         <include>org.gatein.sso:sso-auth-callback:jar</include>

@@ -30,7 +30,7 @@
   </parent>
   <artifactId>saml2-addon-packaging</artifactId>
   <packaging>pom</packaging>
-  <name>SAML2 add-on Packaging</name>
+  <name>eXo Add-on:: SAML2 add-on Packaging</name>
   <description>The SAML2 add-on packaging</description>
 
   <dependencies>

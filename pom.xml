@@ -50,10 +50,9 @@
     <!-- **************************************** -->
     <!-- Dependencies versions -->
     <!-- **************************************** -->
-    <org.exoplatform.depmgt.version>13-SNAPSHOT</org.exoplatform.depmgt.version>
     <org.exoplatform.gatein.portal.version>5.0.x-SNAPSHOT</org.exoplatform.gatein.portal.version>
     <org.exoplatform.gatein.sso.version>5.0.x-SNAPSHOT</org.exoplatform.gatein.sso.version>
-    <version.picketlink.fed>2.5.3.Final</version.picketlink.fed>
+    <version.picketlink.fed>2.5.5.Final</version.picketlink.fed>
   </properties>
 
   <dependencyManagement>
@@ -96,7 +95,7 @@
       </dependency>
       <dependency>
         <groupId>org.picketlink.distribution</groupId>
-        <artifactId>picketlink-jbas7</artifactId>
+        <artifactId>picketlink-wildfly8</artifactId>
         <version>${version.picketlink.fed}</version>
       </dependency>
       <dependency>

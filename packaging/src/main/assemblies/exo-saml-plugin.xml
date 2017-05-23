@@ -53,7 +53,7 @@
         <include>org.picketlink:picketlink-common</include>
         <include>org.picketlink:picketlink-config</include>
         <include>org.picketlink:picketlink-federation</include>
-        <include>org.picketlink.distribution:picketlink-jbas7</include>
+        <include>org.picketlink.distribution:picketlink-wildfly8</include>
       </includes>
     </dependencySet>
   </dependencySets>

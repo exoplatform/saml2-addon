@@ -1,7 +1,9 @@
 SAML2 Addon
 =======
 
-Note: SAML2 integration only works for eXo Platform Jboss
+Note:
+SAML2 IDP integration only works for eXo Platform Jboss
+SAML2 SP integration works for eXo Platform Jboss & Tomcat
 
 ### Install and configure Platform as Service provider (SP)
 - Go to $PLATFORM_HOME than run this command to install exo-saml2 addon
@@ -24,23 +26,31 @@ The `SSODelegateLoginModule` will look like:
 ```
 # SSO
 gatein.sso.enabled=true
+gatein.sso.saml.sp.enabled=true
 gatein.sso.callback.enabled=${gatein.sso.enabled}
 gatein.sso.login.module.enabled=${gatein.sso.enabled}
-gatein.sso.login.module.class=org.gatein.sso.agent.login.SAML2IntegrationLoginModule
+gatein.sso.filter.logout.enabled=false
 gatein.sso.filter.login.sso.url=/@@portal.container.name@@/dologin
-gatein.sso.filter.logout.enabled=true
-gatein.sso.filter.logout.class=org.gatein.sso.agent.filter.SAML2LogoutFilter
 gatein.sso.filter.initiatelogin.enabled=false
-gatein.sso.valve.enabled=true
-gatein.sso.valve.class=org.picketlink.identity.federation.bindings.tomcat.sp.ServiceProviderAuthenticator
-gatein.sso.saml.config.file=/WEB-INF/conf/sso/saml/picketlink-sp.xml
+gatein.sso.saml.config.file=${exo.conf.dir}/saml2/picketlink-sp.xml
 gatein.sso.idp.host=www.idp.com
-gatein.sso.idp.url=http://${gatein.sso.idp.host}:8080/portal/dologin
+gatein.sso.idp.url=http://${gatein.sso.idp.host}:8087/portal/sso
 gatein.sso.sp.url=http://www.sp.com:8080/portal/dologin
 # WARNING: This bundled keystore is only for testing purposes. You should generate and use your own keystore!
-gatein.sso.picketlink.keystore=/sso/saml/jbid_test_keystore.jks
+gatein.sso.picketlink.keystore=${exo.conf.dir}/saml2/jbid_test_keystore.jks
+
+# Uncomment this when JBoss is used
+
+#gatein.sso.login.module.class=org.gatein.sso.agent.login.SAML2WildflyIntegrationLoginModule
+#gatein.sso.uri.suffix=dologin
+
+# Uncomment this when Tomcat is used
+
+#gatein.sso.login.module.class=org.gatein.sso.agent.login.SAML2IntegrationLoginModule
+#gatein.sso.valve.enabled=true
+#gatein.sso.valve.class=org.gatein.sso.saml.plugin.valve.ServiceProviderAuthenticator
 ```
-- Start Platform SP with
+- Start Platform SP when using JBoss with
 ```
 cd $GATEIN_SP_HOME/bin
 ./standalone.sh -b www.sp.com
@@ -54,16 +64,19 @@ cd $GATEIN_SP_HOME/bin
 - Edit `$PLATFORM_HOME/standalone/configuration/gatein/exo.properties` and update these configuration (add new if they do not exist)
 ```
 # SSO
-gatein.sso.enabled=false
-gatein.sso.valve.enabled=true
-gatein.sso.valve.class=org.gatein.sso.saml.plugin.valve.PortalIDPWebBrowserSSOValve
-gatein.sso.saml.config.file=/WEB-INF/conf/sso/saml/picketlink-idp.xml
-gatein.sso.idp.url=http://www.idp.com:8080/portal/dologin
-gatein.sso.idp.listener.enabled=true
+gatein.sso.enabled=true
+gatein.sso.filter.login.enabled=false
+gatein.sso.filter.logout.enabled=false
+gatein.sso.filter.initiatelogin.enabled=false
+gatein.sso.filter.saml.idp.enabled=true
+gatein.sso.skip.jsp.redirection=false
+gatein.sso.saml.signature.ignore=true
+gatein.sso.saml.config.file=${exo.conf.dir}/saml2/picketlink-idp.xml
+gatein.sso.idp.url=http://www.idp.com:8087/portal/sso
 gatein.sso.sp.domains=sp.com
 gatein.sso.sp.host=www.sp.com
 # WARNING: This bundled keystore is only for testing purposes. You should generate and use your own keystore in production!
-gatein.sso.picketlink.keystore=/sso/saml/jbid_test_keystore.jks
+gatein.sso.picketlink.keystore=${exo.conf.dir}/saml2/jbid_test_keystore.jks
 ```
 - Start Platform IDP with:
 ```
@@ -89,8 +102,6 @@ This package is used to run `idp-sig.war`.
 <security-domain name="idp" cache-type="default">
    <authentication>
       <login-module code="org.gatein.sso.saml.plugin.SAML2IdpLoginModule" flag="required">
-         <module-option name="rolesProcessing" value="STATIC"/>
-         <module-option name="staticRolesList" value="manager,employee,sales"/>
          <module-option name="gateInURL" value="http://www.sp.com:8080/portal"/>
       </login-module>
    </authentication>

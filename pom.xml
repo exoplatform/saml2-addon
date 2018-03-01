@@ -50,8 +50,8 @@
     <!-- **************************************** -->
     <!-- Dependencies versions -->
     <!-- **************************************** -->
-    <org.exoplatform.gatein.portal.version>5.0.x-SNAPSHOT</org.exoplatform.gatein.portal.version>
-    <org.exoplatform.gatein.sso.version>5.0.x-SNAPSHOT</org.exoplatform.gatein.sso.version>
+    <org.exoplatform.gatein.portal.version>5.0.0-RC12</org.exoplatform.gatein.portal.version>
+    <org.exoplatform.gatein.sso.version>5.0.0-RC12</org.exoplatform.gatein.sso.version>
     <version.picketlink.fed>2.5.5.Final</version.picketlink.fed>
   </properties>
 

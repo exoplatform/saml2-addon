@@ -52,6 +52,7 @@
     <!-- **************************************** -->
     <org.exoplatform.gatein.portal.version>5.2.x-SNAPSHOT</org.exoplatform.gatein.portal.version>
     <org.exoplatform.gatein.sso.version>5.2.x-SNAPSHOT</org.exoplatform.gatein.sso.version>
+    <org.picketbox.jboss-security-spi.version>3.0.0.Final</org.picketbox.jboss-security-spi.version>
     <version.picketlink.fed>2.5.5.Final</version.picketlink.fed>
   </properties>
 
@@ -94,11 +95,6 @@
         <version>${version.picketlink.fed}</version>
       </dependency>
       <dependency>
-        <groupId>org.picketlink.distribution</groupId>
-        <artifactId>picketlink-wildfly8</artifactId>
-        <version>${version.picketlink.fed}</version>
-      </dependency>
-      <dependency>
         <groupId>org.picketlink</groupId>
         <artifactId>picketlink-common</artifactId>
         <version>${version.picketlink.fed}</version>
@@ -107,6 +103,11 @@
         <groupId>org.picketlink</groupId>
         <artifactId>picketlink-config</artifactId>
         <version>${version.picketlink.fed}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.picketbox</groupId>
+        <artifactId>jboss-security-spi</artifactId>
+        <version>${org.picketbox.jboss-security-spi.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

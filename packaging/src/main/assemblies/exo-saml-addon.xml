@@ -22,20 +22,12 @@
 -->
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-  <id>exo-answers-addon</id>
+  <id>exo-saml-addon</id>
   <formats>
     <format>zip</format>
   </formats>
   <includeBaseDirectory>false</includeBaseDirectory>
   <fileSets>
-    <fileSet>
-      <useDefaultExcludes>false</useDefaultExcludes>
-      <directory>${project.build.directory}</directory>
-      <outputDirectory>/</outputDirectory>
-      <includes>
-        <include>saml-plugin-jboss.zip</include>
-      </includes>
-    </fileSet>
     <fileSet>
       <useDefaultExcludes>false</useDefaultExcludes>
       <directory>${project.basedir}/src/main/resources/exo-saml2-config</directory>
@@ -53,7 +45,7 @@
         <include>org.picketlink:picketlink-common</include>
         <include>org.picketlink:picketlink-config</include>
         <include>org.picketlink:picketlink-federation</include>
-        <include>org.picketlink.distribution:picketlink-wildfly8</include>
+        <include>org.picketbox:jboss-security-spi</include>
         <include>org.exoplatform.gatein.sso:sso-auth-callback</include>
         <include>org.exoplatform.gatein.sso:sso-saml-plugin</include>
         <include>org.exoplatform.gatein.portal:exo.portal.component.web.sso.integration-configs</include>

@@ -85,11 +85,6 @@
         <version>${org.exoplatform.gatein.portal.version}</version>
       </dependency>
       <dependency>
-        <groupId>org.exoplatform.gatein.portal</groupId>
-        <artifactId>exo.portal.component.web.sso.saml</artifactId>
-        <version>${org.exoplatform.gatein.portal.version}</version>
-      </dependency>
-      <dependency>
         <groupId>org.picketlink</groupId>
         <artifactId>picketlink-federation</artifactId>
         <version>${version.picketlink.fed}</version>

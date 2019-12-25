@@ -51,10 +51,6 @@
       <artifactId>exo.portal.component.web.sso.agents-configs</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.exoplatform.gatein.portal</groupId>
-      <artifactId>exo.portal.component.web.sso.saml</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.exoplatform.gatein.sso</groupId>
       <artifactId>sso-packaging</artifactId>
       <type>zip</type>

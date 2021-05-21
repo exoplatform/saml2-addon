@@ -26,7 +26,7 @@
   <parent>
     <groupId>org.exoplatform.addons</groupId>
     <artifactId>addons-parent-pom</artifactId>
-    <version>14-M06</version>
+    <version>14-M08</version>
   </parent>
   <groupId>org.exoplatform.addons.sso</groupId>
   <artifactId>saml2-addon-parent</artifactId>

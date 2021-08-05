@@ -54,6 +54,9 @@
     <org.exoplatform.gatein.sso.version>6.3.x-SNAPSHOT</org.exoplatform.gatein.sso.version>
     <org.picketbox.jboss-security-spi.version>3.0.0.Final</org.picketbox.jboss-security-spi.version>
     <version.picketlink.fed>2.5.5.Final</version.picketlink.fed>
+  
+    <!-- Sonar properties -->
+    <sonar.organization>exoplatform</sonar.organization>
   </properties>
 
   <dependencyManagement>
@@ -116,4 +119,34 @@
       </plugins>
     </pluginManagement>
   </build>
+  
+  <!-- This profile is used to allow github action to build branches. The github action is used for sonar analysis -->
+  <profiles>
+    <profile>
+      <id>project-repositories</id>
+      <activation>
+        <property>
+          <name>!skip-project-repositories</name>
+        </property>
+      </activation>
+      <repositories>
+        <repository>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <id>repository.exoplatform.org</id>
+          <url>https://repository.exoplatform.org/public</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+          <id>repository.exoplatform.org</id>
+          <url>https://repository.exoplatform.org/public</url>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
 </project>

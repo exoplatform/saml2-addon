@@ -26,11 +26,11 @@
   <parent>
     <groupId>org.exoplatform.addons</groupId>
     <artifactId>addons-exo-parent-pom</artifactId>
-    <version>18-M02</version>
+    <version>18-security-fix-SNAPSHOT</version>
   </parent>
   <groupId>org.exoplatform.addons.sso</groupId>
   <artifactId>saml2-addon-parent</artifactId>
-  <version>3.6.x-SNAPSHOT</version>
+  <version>3.6.x-security-fix-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>eXo Add-on:: SAML2 SSO</name>
   <description>The SAML2 SSO add-on</description>
@@ -50,7 +50,7 @@
     <!-- **************************************** -->
     <!-- Dependencies versions -->
     <!-- **************************************** -->
-    <org.exoplatform.commons-exo.version>6.6.x-SNAPSHOT</org.exoplatform.commons-exo.version>
+    <org.exoplatform.commons-exo.version>6.6.x-security-fix-SNAPSHOT</org.exoplatform.commons-exo.version>
   
     <!-- Sonar properties -->
     <sonar.organization>exoplatform</sonar.organization>

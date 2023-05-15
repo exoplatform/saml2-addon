@@ -26,7 +26,7 @@
   <parent>
     <groupId>org.exoplatform.addons</groupId>
     <artifactId>addons-exo-parent-pom</artifactId>
-    <version>17-security-fix-SNAPSHOT</version>
+    <version>17-M01</version>
   </parent>
   <groupId>org.exoplatform.addons.sso</groupId>
   <artifactId>saml2-addon-parent</artifactId>
@@ -51,7 +51,7 @@
     <!-- **************************************** -->
     <!-- Dependencies versions -->
     <!-- **************************************** -->
-    <org.exoplatform.commons-exo.version>6.5.x-security-fix-SNAPSHOT</org.exoplatform.commons-exo.version>
+    <org.exoplatform.commons-exo.version>6.5.x-SNAPSHOT</org.exoplatform.commons-exo.version>
     <org.picketbox.jboss-security-spi.version>3.0.0.Final</org.picketbox.jboss-security-spi.version>
     <version.picketlink.fed>2.5.5.Final</version.picketlink.fed>
   

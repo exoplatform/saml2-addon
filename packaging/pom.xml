@@ -48,11 +48,6 @@
       <artifactId>sso-saml-plugin</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.exoplatform.gatein.sso</groupId>
-      <artifactId>sso-packaging</artifactId>
-      <type>zip</type>
-    </dependency>
-    <dependency>
       <groupId>org.picketlink</groupId>
       <artifactId>picketlink-common</artifactId>
     </dependency>
@@ -73,30 +68,6 @@
   <build>
     <finalName>${project.artifactId}-${project.version}</finalName>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>unpack</id>
-            <phase>package</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.exoplatform.gatein.sso</groupId>
-                  <artifactId>sso-packaging</artifactId>
-                  <type>zip</type>
-                  <outputDirectory>${project.build.directory}/sso-packaging.zip</outputDirectory>
-                </artifactItem>
-              </artifactItems>
-              <!-- other configurations here -->
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>

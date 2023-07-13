@@ -30,7 +30,7 @@
   </parent>
   <groupId>org.exoplatform.addons.sso</groupId>
   <artifactId>saml2-addon-parent</artifactId>
-  <version>3.5.x-SNAPSHOT</version>
+  <version>3.5.0-M14</version>
   <packaging>pom</packaging>
   <name>eXo Add-on:: SAML2 SSO</name>
   <description>The SAML2 SSO add-on</description>
@@ -39,7 +39,7 @@
     <connection>scm:git:git://github.com/exoplatform/saml2-addon.git</connection>
     <developerConnection>scm:git:git@github.com:exoplatform/saml2-addon.git</developerConnection>
     <url>https://github.com/exoplatform/saml2-addon</url>
-    <tag>HEAD</tag>
+    <tag>3.5.0-M14</tag>
   </scm>
 
   <modules>

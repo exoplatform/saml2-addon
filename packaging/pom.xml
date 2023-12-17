@@ -35,33 +35,8 @@
 
   <dependencies>
     <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>saml2-addon-service</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.exoplatform.gatein.sso</groupId>
-      <artifactId>sso-auth-callback</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.exoplatform.gatein.sso</groupId>
       <artifactId>sso-saml-plugin</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.picketlink</groupId>
-      <artifactId>picketlink-common</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.picketlink</groupId>
-      <artifactId>picketlink-config</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.picketlink</groupId>
-      <artifactId>picketlink-federation</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.picketbox</groupId>
-      <artifactId>jboss-security-spi</artifactId>
     </dependency>
   </dependencies>
 

@@ -43,7 +43,6 @@
   </scm>
 
   <modules>
-    <module>service</module>
     <module>packaging</module>
   </modules>
 
@@ -52,8 +51,6 @@
     <!-- Dependencies versions -->
     <!-- **************************************** -->
     <org.exoplatform.commons-exo.version>6.6.x-SNAPSHOT</org.exoplatform.commons-exo.version>
-    <org.picketbox.jboss-security-spi.version>3.0.0.Final</org.picketbox.jboss-security-spi.version>
-    <version.picketlink.fed>2.5.5.Final</version.picketlink.fed>
   
     <!-- Sonar properties -->
     <sonar.organization>exoplatform</sonar.organization>
@@ -68,44 +65,8 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency>
-        <groupId>${project.groupId}</groupId>
-        <artifactId>saml2-addon-service</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.picketlink</groupId>
-        <artifactId>picketlink-federation</artifactId>
-        <version>${version.picketlink.fed}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.picketlink</groupId>
-        <artifactId>picketlink-common</artifactId>
-        <version>${version.picketlink.fed}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.picketlink</groupId>
-        <artifactId>picketlink-config</artifactId>
-        <version>${version.picketlink.fed}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.picketbox</groupId>
-        <artifactId>jboss-security-spi</artifactId>
-        <version>${org.picketbox.jboss-security-spi.version}</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-dependency-plugin</artifactId>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
   
   <!-- This profile is used to allow github action to build branches. The github action is used for sonar analysis -->
   <profiles>

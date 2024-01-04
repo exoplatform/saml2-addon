@@ -30,7 +30,7 @@
   </parent>
   <groupId>org.exoplatform.addons.sso</groupId>
   <artifactId>saml2-addon-parent</artifactId>
-  <version>3.5.0-20240103</version>
+  <version>3.5.x-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>eXo Add-on:: SAML2 SSO</name>
   <description>The SAML2 SSO add-on</description>
@@ -39,7 +39,7 @@
     <connection>scm:git:git://github.com/exoplatform/saml2-addon.git</connection>
     <developerConnection>scm:git:git@github.com:exoplatform/saml2-addon.git</developerConnection>
     <url>https://github.com/exoplatform/saml2-addon</url>
-    <tag>3.5.0-20240103</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <modules>
@@ -51,7 +51,7 @@
     <!-- **************************************** -->
     <!-- Dependencies versions -->
     <!-- **************************************** -->
-    <org.exoplatform.commons-exo.version>6.5.0-20240103</org.exoplatform.commons-exo.version>
+    <org.exoplatform.commons-exo.version>6.5.x-SNAPSHOT</org.exoplatform.commons-exo.version>
     <org.picketbox.jboss-security-spi.version>3.0.0.Final</org.picketbox.jboss-security-spi.version>
     <version.picketlink.fed>2.5.5.Final</version.picketlink.fed>
   

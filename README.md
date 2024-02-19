@@ -11,8 +11,6 @@ SAML2 Addon
 gatein.sso.enabled=true
 gatein.sso.saml.sp.enabled=true
 gatein.sso.callback.enabled=true
-gatein.sso.login.module.enabled=true
-gatein.sso.login.module.class=org.gatein.sso.agent.login.SAML2IntegrationLoginModule
 gatein.sso.valve.enabled=true
 gatein.sso.valve.class=org.gatein.sso.saml.plugin.valve.ServiceProviderAuthenticator
 gatein.sso.filter.login.sso.url=/portal/dologin

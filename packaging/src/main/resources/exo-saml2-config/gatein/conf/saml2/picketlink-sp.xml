@@ -1,6 +1,6 @@
 <PicketLink xmlns="urn:picketlink:identity-federation:config:2.1">
   <PicketLinkSP xmlns="urn:picketlink:identity-federation:config:2.1"
-                ServerEnvironment="tomcat" BindingType="POST" SupportsSignatures="true" LogOutPage="/">
+                ServerEnvironment="tomcat" BindingType="POST" SupportsSignatures="true" LogOutPage="/" LogOutUrl="${gatein.sso.idp.url.logout::/logout}">
     <IdentityURL>${gatein.sso.idp.url}</IdentityURL>
     <ServiceURL>${gatein.sso.sp.url}</ServiceURL>
 

@@ -25,6 +25,7 @@ gatein.sso.sp.host=SP_HOSTNAME
 gatein.sso.sp.url=${gatein.sso.sp.host}/portal/dologin
 gatein.sso.idp.host=IDP_HOSTNAME
 gatein.sso.idp.url=IDP_SAML_ENDPOINT
+gatein.sso.idp.url.logout=IDP_SAML_ENDPOINT_LOGOUT
 gatein.sso.idp.alias=IDP_SIGNING_ALIAS
 gatein.sso.idp.signingkeypass=IDP_SIGNING_KEY_PASS
 gatein.sso.idp.keystorepass=IDP_KEYSTORE_PASS
@@ -34,6 +35,7 @@ gatein.sso.picketlink.keystore=${exo.conf.dir}/saml2/jbid_test_keystore.jks
 Note: The following properties values must be configured
 ```
 IDP_SAML_ENDPOINT: Saml IDP Endpoint: Example, http://idp.com/saml
+IDP_SAML_ENDPOINT_LOGOUT: Saml IDP Logout Endpoint: Example, http://idp.com/saml/logout
 IDP_SIGNING_ALIAS: Certificate Alias in selected Keystore file, Example: idpalias
 IDP_SIGNING_KEY_PASS: Certificates Keystore Password, Example: test123
 IDP_KEYSTORE_PASS: SSL Keystore Password, Example: store123

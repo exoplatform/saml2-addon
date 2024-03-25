@@ -43,6 +43,7 @@
       <outputDirectory>/lib</outputDirectory>
       <includes>
         <include>org.exoplatform.gatein.sso:sso-saml-plugin</include>
+        <include>org.apache.santuario:xmlsec</include>
       </includes>
       <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
     </dependencySet>

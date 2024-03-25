@@ -49,6 +49,7 @@
         <include>org.exoplatform.gatein.sso:sso-auth-callback</include>
         <include>org.exoplatform.gatein.sso:sso-saml-plugin</include>
         <include>org.exoplatform.addons.sso:saml2-addon-service</include>
+        <include>org.apache.santuario:xmlsec</include>
       </includes>
     </dependencySet>
   </dependencySets>

@@ -22,8 +22,7 @@
         class="org.gatein.sso.agent.saml.PortalSAML2LogOutHandler"/>
     <Handler
         class="org.picketlink.identity.federation.web.handlers.saml2.SAML2AuthenticationHandler">
-        <Option Key="NAMEID_FORMAT" Value="urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"/>
-    </Handler>
+      <Option Key="NAMEID_FORMAT" Value="${gatein.sso.saml.nameid.format::urn:oasis:names:tc:SAML:2.0:nameid-format:persistent}"/>    </Handler>
     <Handler
         class="org.picketlink.identity.federation.web.handlers.saml2.RolesGenerationHandler"/>
 

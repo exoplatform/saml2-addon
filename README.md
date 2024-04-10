@@ -90,3 +90,14 @@ keytool -import -keystore jbid_test_keystore.jks -file SelfSignedCert_17Oct2013_
 gatein.sso.idp.alias=idpalias
 ```
 - Start eXo Platform as SP then test it
+
+#### Configure NameId format
+When using saml2-addon, exo needs the user identifier in the name-id field of the assertion.
+
+To configure it, there is 2 options : 
+- On IDP side : some IDPs allows to force the name-id format neverming the name-id requested in the SAMLRequest assertion. In this case, you can configure 
+  - persistent : the nameid will be a unique identifier, which will not change during this. This id must be the username in eXo
+  - unspecified : then you can choose a user attribute like username as name id
+- On exo side : the property `gatein.sso.saml.nameid.format` allow to configure the wanted nameid format. By dafault, value is `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`. It can be changed to `urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified` if needed
+
+gatein.sso.saml.nameid.format

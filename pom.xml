@@ -30,7 +30,7 @@
   </parent>
   <groupId>org.exoplatform.addons.sso</groupId>
   <artifactId>saml2-addon-parent</artifactId>
-  <version>7.3.x-SNAPSHOT</version>
+  <version>7.3.x-maintenance-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>eXo Add-on:: SAML2 SSO</name>
   <description>The SAML2 SSO add-on</description>
@@ -52,7 +52,7 @@
     <!-- **************************************** -->
     <!-- Dependencies versions -->
     <!-- **************************************** -->
-    <org.exoplatform.commons-exo.version>7.3.x-SNAPSHOT</org.exoplatform.commons-exo.version>
+    <org.exoplatform.commons-exo.version>7.3.x-maintenance-SNAPSHOT</org.exoplatform.commons-exo.version>
   
     <!-- Minimum ratio of covered instructions of the bundle (jacoco check-coverage of the parent pom, 1.0 by default).
          SAML2ExtendedAuthenticationHandler, the PicketLink handler of the add-on, has no unit test (about 660 instructions

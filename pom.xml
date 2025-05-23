@@ -43,6 +43,7 @@
   </scm>
 
   <modules>
+    <module>service</module>
     <module>packaging</module>
   </modules>
 
@@ -64,6 +65,11 @@
         <version>${org.exoplatform.commons-exo.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.exoplatform.addons.sso</groupId>
+        <artifactId>saml2-addon-service</artifactId>
+        <version>${project.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

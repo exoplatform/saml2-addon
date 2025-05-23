@@ -38,6 +38,10 @@
       <groupId>io.meeds.gatein.sso</groupId>
       <artifactId>sso-saml-plugin</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.exoplatform.addons.sso</groupId>
+      <artifactId>saml2-addon-service</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

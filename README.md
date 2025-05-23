@@ -100,4 +100,13 @@ To configure it, there is 2 options :
   - unspecified : then you can choose a user attribute like username as name id
 - On exo side : the property `gatein.sso.saml.nameid.format` allow to configure the wanted nameid format. By dafault, value is `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`. It can be changed to `urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified` if needed
 
-gatein.sso.saml.nameid.format
+#### Set username in other field than nameid
+In some installation, IDP requires that nameid is not the username but a numeric id. In this case, you can set the username in another field by setting theses properties in exo.properties
+```
+gatein.sso.saml.use.namedid=false
+gatein.sso.saml.subject.attribute=uid
+```
+
+With this configuration, the username or email will be read in the attribute provided by the assertion.
+
+

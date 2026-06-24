@@ -7,9 +7,9 @@
     <!-- WARNING: This bundled keystore is only for testing purposes. You should generate and configure your own keystore!-->
     <KeyProvider ClassName="org.picketlink.identity.federation.core.impl.KeyStoreKeyManager">
       <Auth Key="KeyStoreURL" Value="${gatein.sso.picketlink.keystore}"/>
-      <Auth Key="KeyStorePass" Value="${gatein.sso.idp.keystorepass}"/>
-      <Auth Key="SigningKeyPass" Value="${gatein.sso.idp.signingkeypass}"/>
-      <Auth Key="SigningKeyAlias" Value="${gatein.sso.idp.alias}"/>
+      <Auth Key="KeyStorePass" Value="${gatein.sso.sp.keystorepass}"/>
+      <Auth Key="SigningKeyPass" Value="${gatein.sso.sp.signingkeypass}"/>
+      <Auth Key="SigningKeyAlias" Value="${gatein.sso.sp.alias}"/>
       <Auth Key="salt" Value="18273645"/>
       <Auth Key="iterationCount" Value="11"/>
       <ValidatingAlias Key="${gatein.sso.idp.host}" Value="${gatein.sso.idp.alias}"/>
@@ -31,10 +31,10 @@
 
     <!-- <Handler
           class="org.picketlink.identity.federation.web.handlers.saml2.SAML2IssuerTrustHandler" /> -->
-    <!-- <Handler
-          class="org.picketlink.identity.federation.web.handlers.saml2.SAML2SignatureGenerationHandler" /> -->
-    <!-- <Handler
-          class="org.picketlink.identity.federation.web.handlers.saml2.SAML2SignatureValidationHandler"/> -->
+    <Handler
+          class="org.picketlink.identity.federation.web.handlers.saml2.SAML2SignatureGenerationHandler" />
+    <Handler
+          class="org.picketlink.identity.federation.web.handlers.saml2.SAML2SignatureValidationHandler"/>
 
   </Handlers>
 

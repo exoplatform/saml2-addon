@@ -27,8 +27,9 @@ gatein.sso.idp.host=IDP_HOSTNAME
 gatein.sso.idp.url=IDP_SAML_ENDPOINT
 gatein.sso.idp.url.logout=IDP_SAML_ENDPOINT_LOGOUT
 gatein.sso.idp.alias=IDP_SIGNING_ALIAS
-gatein.sso.idp.signingkeypass=IDP_SIGNING_KEY_PASS
-gatein.sso.idp.keystorepass=IDP_KEYSTORE_PASS
+gatein.sso.sp.alias=SP_SIGNING_ALIAS
+gatein.sso.sp.signingkeypass=SP_SIGNING_KEY_PASS
+gatein.sso.sp.keystorepass=SP_KEYSTORE_PASS
 # WARNING: This bundled keystore is only for testing purposes. You should generate and use your own keystore!
 gatein.sso.picketlink.keystore=${exo.conf.dir}/saml2/jbid_test_keystore.jks
 ```

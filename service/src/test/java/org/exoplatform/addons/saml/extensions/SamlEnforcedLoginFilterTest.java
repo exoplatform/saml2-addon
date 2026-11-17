@@ -1,6 +1,7 @@
 package org.exoplatform.addons.saml.extensions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -144,6 +145,43 @@ public class SamlEnforcedLoginFilterTest {
       assertEquals(1, seen.length, uri);
       assertEquals("JSESSIONID", seen[0].getName(), uri);
     }
+  }
+
+  @Test
+  public void aBlankSsoSuffixKeepsTheDefault() throws Exception {
+    assertRedirected(filter("10.0.0.0/8", "  "), request("10.2.3.4", "/login", null, null), "/portal/sso");
+  }
+
+  @Test
+  public void aMalformedEncodingOfTheUriIsTreatedAsALoginRoute() throws Exception {
+    HttpServletRequest request = request("10.2.3.4", "/anything", null, null);
+    when(request.getRequestURI()).thenReturn("/portal/login%");
+    assertRedirected(filter("10.0.0.0/8", null), request, "/portal/sso");
+  }
+
+  @Test
+  public void aMalformedEncodingIsNotTheLogout() {
+    HttpServletRequest request = request("10.2.3.4", "/logout", null, null);
+    when(request.getRequestURI()).thenReturn("/portal/logout%");
+    assertFalse(SamlEnforcedLoginFilter.isLogoutRoute(request));
+  }
+
+  @Test
+  public void aUriOutsideTheContextPathIsNeitherARouteNorTheLogout() throws Exception {
+    for (String uri : new String[] { null, "/elsewhere/login" }) {
+      HttpServletRequest request = request("10.2.3.4", "/logout", null, null);
+      when(request.getRequestURI()).thenReturn(uri);
+      assertFalse(SamlEnforcedLoginFilter.isLogoutRoute(request));
+    }
+    HttpServletRequest noContext = request("10.2.3.4", "/logout", null, null);
+    when(noContext.getContextPath()).thenReturn(null);
+    assertFalse(SamlEnforcedLoginFilter.isLogoutRoute(noContext));
+    assertFalse(SamlEnforcedLoginFilter.isLoginRoute(noContext));
+  }
+
+  @Test
+  public void destroyHasNothingToRelease() {
+    filter("10.0.0.0/8", null).destroy();
   }
 
   @Test

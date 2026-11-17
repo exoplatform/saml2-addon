@@ -119,6 +119,17 @@ public class SamlLoginParamsExtensionTest {
   }
 
   @Test
+  public void aSkippedLoginPageOnlyWarns() {
+    SSOHelper helper = sso(true);
+    when(helper.skipJSPRedirection()).thenReturn(true);
+    // The button is still offered: the warning tells the administrator that the login page is not displayed
+    currentPortalContainer("/portal");
+    assertEquals(true,
+                 new SamlLoginParamsExtension(helper, params("true")).extendParameters(context(), LoginHandler.LOGIN_EXTENSION_NAME)
+                                                                     .get("samlLoginEnabled"));
+  }
+
+  @Test
   public void nothingIsAddedWithoutTheFlag() {
     for (InitParams params : new InitParams[] { params("false"), params(""), params("yes"), params(null), null }) {
       assertNull(new SamlLoginParamsExtension(sso(true), params).extendParameters(context(), LoginHandler.LOGIN_EXTENSION_NAME));

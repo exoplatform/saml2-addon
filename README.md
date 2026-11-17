@@ -46,6 +46,34 @@ IDP_KEYSTORE_PASS: SSL Keystore Password, Example: store123
 cd $PLATFORM_HOME
 ./start_eXo.sh
 ```
+### Keep the portal login page next to the SAML login (optional)
+By default, eXo does not display a login page of its own: a visitor who needs to sign in is redirected to the IDP.
+This optional mode keeps the portal login page (like with OpenID) and adds a **Sign in with SAML** button that starts the SAML workflow.
+Without the flag below, nothing changes.
+
+Add to `$PLATFORM_HOME/gatein/conf/exo.properties`:
+```
+gatein.sso.skip.jsp.redirection=false
+gatein.sso.saml.login.page.enabled=true
+gatein.sso.filter.logout.class=org.exoplatform.addons.saml.extensions.HybridSAML2LogoutFilter
+# Optional: clients that must use the SAML login
+gatein.sso.saml.login.enforced.ips=10.0.0.0/8, 192.168.1.10, 172.16.5.1-172.16.5.50
+```
+
+| Property | Description | Default |
+|----|----|----|
+| `gatein.sso.skip.jsp.redirection` | Must be exactly `false`, so that the portal login page is displayed (portal property) | follows `gatein.sso.enabled` |
+| `gatein.sso.saml.login.page.enabled` | Displays the SAML button on the login page, and enables the enforced IP list below. Needs `gatein.sso.enabled=true` | `false` |
+| `gatein.sso.filter.logout.class` | `org.exoplatform.addons.saml.extensions.HybridSAML2LogoutFilter` starts the SAML logout (the redirection to the IDP) only for users who signed in with SAML. Users who signed in with a local password get the regular portal logout. With the stock `SAML2LogoutFilter`, their logout ends on a blank page and the session stays half closed. `gatein.sso.filter.logout.enabled` must stay `true` | `org.gatein.sso.saml.plugin.filter.SAML2LogoutFilter` |
+| `gatein.sso.saml.login.enforced.ips` | Optional. IP addresses, CIDR blocks (`10.0.0.0/8`, `2001:db8::/32`) and ranges (`10.1.1.10-10.1.1.20`), separated by comma, semicolon or space (spaces around `-` and `/` are accepted). Host names are not accepted. An invalid entry enforces nothing and is logged at error level: check the startup log line `SAML login enforced for the client addresses`. For an unauthenticated client whose address is listed (or cannot be parsed), `/portal/login`, `/portal/doLogin` and `/portal/dologin/` redirect to `<context>/sso` (the SAML workflow) instead of showing the login page or accepting a password, and the portal's remember-me filter ignores the remember-me cookie of a local login (except at exactly `/portal/logout`, which still deletes its token: a variant such as `/portal/logout;x=1` is handled like any other path) | empty |
+
+Notes:
+- **Label.** The button label comes from the `UILoginForm.label.provider.saml` key of the Login portlet bundle ("Sign in with SAML", added to the `social` bundle by EXO-94422), or from the provider label set in the settings of the Login portlet. A platform version without that key shows "Sign in with Saml".
+- **Client address.** The list is matched against the remote address of the request. The `X-Forwarded-For` header is never read by the add-on, but the platform's Tomcat `RemoteIpValve` replaces the remote address with its value when the direct peer is one of its trusted proxies (`internalProxies`, by default every private range). With the default settings, a client of a private network can therefore choose the address it is seen with: restrict `internalProxies` to your real reverse proxies, otherwise the list can be bypassed. A list with only IPv4 entries does not match a client that reaches the server over IPv6, and conversely.
+- **What is enforced.** The login page and its form, and the remember-me cookie, in the portal web application (`/portal`). It is **not** an access control. It does not cover the HTTP Basic and Digest authentication of the REST (`/rest/private`) and WebDAV web applications, which also give a portal session through Tomcat's single sign-on valve; the REST endpoints of the Spring-based web applications (`/social/rest`, those of the add-ons), which still accept the remember-me cookie; a remember-me cookie sent together with any password in an HTTP Basic request to the REST or WebDAV web applications, because the login module of the platform reads the raw request and signs in as the owner of the token; nor OpenID or the other providers of the login page. Block these at the reverse proxy for the networks that must use SAML.
+- Without the flag, a local password can still be submitted to `/portal/login`, as before.
+- If the IDP refuses a user of an enforced address, that client has no local fallback login.
+
 ### SAML2 scenario with eXo Platform and Salesforce
 ##### Configure Salesforce as IDP and Platform as SP
 #####  Configuring Salesforce as SAML2 IDP 

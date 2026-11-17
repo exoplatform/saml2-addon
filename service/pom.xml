@@ -32,8 +32,35 @@
       <groupId>io.meeds.gatein.sso</groupId>
       <artifactId>sso-saml-plugin</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.meeds.portal</groupId>
+      <artifactId>portal.component.web.security</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <!-- The test jar is published: the test-only DNS resolver (a JVM-wide service) must not be in it -->
+          <excludes>
+            <exclude>META-INF/services/java.net.spi.InetAddressResolverProvider</exclude>
+            <exclude>**/RecordingResolverProvider*</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>

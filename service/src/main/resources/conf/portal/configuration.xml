@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd http://www.exoplatform.org/xml/ns/kernel_1_2.xsd"
+               xmlns="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd">
+  <component>
+    <key>SamlLoginParamsExtension</key>
+    <type>org.exoplatform.addons.saml.extensions.SamlLoginParamsExtension</type>
+    <init-params>
+      <value-param>
+        <name>enabled</name>
+        <value>${gatein.sso.saml.login.page.enabled:false}</value>
+      </value-param>
+    </init-params>
+  </component>
+  <external-component-plugins>
+    <target-component>org.gatein.sso.integration.SSOFilterIntegrator</target-component>
+    <component-plugin>
+      <name>SamlEnforcedLoginFilter</name>
+      <set-method>addPlugin</set-method>
+      <type>org.gatein.sso.integration.SSOFilterIntegratorPlugin</type>
+      <init-params>
+        <value-param>
+          <name>filterClass</name>
+          <value>org.exoplatform.addons.saml.extensions.SamlEnforcedLoginFilter</value>
+        </value-param>
+        <value-param>
+          <name>enabled</name>
+          <value>${gatein.sso.saml.login.page.enabled:false}</value>
+        </value-param>
+        <value-param>
+          <name>filterMapping</name>
+          <!-- Every request: the filter only acts on the anonymous ones of the enforced clients (login routes and remember-me cookie) -->
+          <value>/*</value>
+        </value-param>
+        <value-param>
+          <name>ENFORCED_IPS</name>
+          <value>${gatein.sso.saml.login.enforced.ips:}</value>
+        </value-param>
+        <value-param>
+          <name>SSO_URL_SUFFIX</name>
+          <value>${gatein.sso.uri.suffix:/sso}</value>
+        </value-param>
+      </init-params>
+    </component-plugin>
+  </external-component-plugins>
+</configuration>

@@ -48,5 +48,13 @@
       </includes>
       <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
     </dependencySet>
+    <dependencySet>
+      <useProjectArtifact>false</useProjectArtifact>
+      <outputDirectory>/webapps</outputDirectory>
+      <includes>
+        <include>org.exoplatform.addons.sso:saml2-addon-webapp</include>
+      </includes>
+      <outputFileNameMapping>saml2-addon.war</outputFileNameMapping>
+    </dependencySet>
   </dependencySets>
 </assembly>

@@ -44,6 +44,7 @@
 
   <modules>
     <module>service</module>
+    <module>webapp</module>
     <module>packaging</module>
   </modules>
 
@@ -70,6 +71,12 @@
         <groupId>org.exoplatform.addons.sso</groupId>
         <artifactId>saml2-addon-service</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.exoplatform.addons.sso</groupId>
+        <artifactId>saml2-addon-webapp</artifactId>
+        <version>${project.version}</version>
+        <type>war</type>
       </dependency>
     </dependencies>
   </dependencyManagement>

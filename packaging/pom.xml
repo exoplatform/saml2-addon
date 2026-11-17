@@ -42,6 +42,11 @@
       <groupId>org.exoplatform.addons.sso</groupId>
       <artifactId>saml2-addon-service</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.exoplatform.addons.sso</groupId>
+      <artifactId>saml2-addon-webapp</artifactId>
+      <type>war</type>
+    </dependency>
   </dependencies>
 
   <build>

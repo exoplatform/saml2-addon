@@ -100,7 +100,8 @@ public class IpMatcherTest {
   public void malformedEntriesAndAddressesNeverReachTheResolver() {
     assertResolverIsRecording();
     String[] malformed = { "999.1.1.1", "1.2.3", "1.2.3.4.5", "010.0.0.1", "zz:1", "gg::1", "1:2", "::1::2",
-                           "1.2.3.4%x", "[::1]", "example.com", "localhost", "10.0.0.0/33", "300.1.1.1-300.1.1.2" };
+                           "1.2.3.4%x", "[::1]", "example.com", "localhost", "10.0.0.0/33", "300.1.1.1-300.1.1.2", "10.0.0.0/abc", "10.0.0.0/-1",
+                           "::ffff:10.0.0.0/64", "1.2.3.4-::1", "[::1" };
     IpMatcher matcher = new IpMatcher(String.join(",", malformed));
     for (String value : malformed) {
       assertFalse(matcher.matches(value), value);
@@ -118,6 +119,12 @@ public class IpMatcherTest {
     assertTrue(matcher.matches("2001:db8::1"));
     assertTrue(matcher.matches("10.9.9.9"));
     assertTrue(RecordingResolverProvider.LOOKUPS.isEmpty());
+  }
+
+  @Test
+  public void anUnclosedBracketIsKeptAsItIs() {
+    assertEquals("[::1", IpMatcher.normalizeClientAddress("[::1"));
+    assertEquals("::1", IpMatcher.normalizeClientAddress("[::1]:8080"));
   }
 
   @Test

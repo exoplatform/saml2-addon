@@ -3,22 +3,18 @@ package org.exoplatform.addons.saml.extensions;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import org.gatein.sso.agent.filter.api.AbstractSSOInterceptor;
 
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.services.log.Log;
-import org.exoplatform.web.login.LoginUtils;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
@@ -52,8 +48,6 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public class SamlEnforcedLoginFilter extends AbstractSSOInterceptor {
 
-  private static final Log     LOG          = ExoLogger.getLogger(SamlEnforcedLoginFilter.class);
-
   /**
    * The routes of the login handler that log in with a username and a
    * password. Not {@code /dologin}: it is the constrained URL that the SAML
@@ -67,19 +61,11 @@ public class SamlEnforcedLoginFilter extends AbstractSSOInterceptor {
    */
   static final String          LOGOUT_ROUTE = "/logout";
 
+  private static final Log     LOG          = ExoLogger.getLogger(SamlEnforcedLoginFilter.class);
+
   private IpMatcher            enforcedIps  = new IpMatcher(null);
 
   private String               ssoUrlSuffix = "/sso";
-
-  @Override
-  protected void initImpl() {
-    this.enforcedIps = new IpMatcher(getInitParameter("ENFORCED_IPS"));
-    String suffix = getInitParameter("SSO_URL_SUFFIX");
-    if (suffix != null && !suffix.isBlank()) {
-      this.ssoUrlSuffix = suffix.trim();
-    }
-    LOG.info("SAML login enforced for the client addresses: {}", enforcedIps.isEmpty() ? "none" : enforcedIps.getEntries());
-  }
 
   @Override
   public void doFilter(ServletRequest servletRequest,
@@ -101,6 +87,26 @@ public class SamlEnforcedLoginFilter extends AbstractSSOInterceptor {
     } else {
       filterChain.doFilter(new WithoutRememberMeCookie(request), servletResponse);
     }
+  }
+
+  @Override
+  public void destroy() {
+    // Nothing to destroy
+  }
+
+  @Override
+  protected void initImpl() {
+    this.enforcedIps = new IpMatcher(getInitParameter("ENFORCED_IPS"));
+    String suffix = getInitParameter("SSO_URL_SUFFIX");
+    if (suffix != null && !suffix.isBlank()) {
+      this.ssoUrlSuffix = suffix.trim();
+    }
+    LOG.info("SAML login enforced for the client addresses: {}", enforcedIps.isEmpty() ? "none" : enforcedIps.getEntries());
+  }
+
+  protected boolean isEnforced(HttpServletRequest request) {
+    String address = request.getRemoteAddr();
+    return enforcedIps.matches(address) || !IpMatcher.isClientAddress(address);
   }
 
   /**
@@ -161,34 +167,6 @@ public class SamlEnforcedLoginFilter extends AbstractSSOInterceptor {
       return null;
     }
     return URLDecoder.decode(uri.substring(contextPath.length()).replace("+", "%2B"), StandardCharsets.UTF_8);
-  }
-
-  protected boolean isEnforced(HttpServletRequest request) {
-    String address = request.getRemoteAddr();
-    return enforcedIps.matches(address) || !IpMatcher.isClientAddress(address);
-  }
-
-  @Override
-  public void destroy() {
-    // Nothing to destroy
-  }
-
-  /**
-   * Hides the remember-me cookie of the portal local login, which the portal
-   * reads with {@code getCookies()}
-   */
-  static class WithoutRememberMeCookie extends HttpServletRequestWrapper {
-
-    WithoutRememberMeCookie(HttpServletRequest request) {
-      super(request);
-    }
-
-    @Override
-    public Cookie[] getCookies() {
-      Cookie[] cookies = super.getCookies();
-      return cookies == null ? null : Arrays.stream(cookies).filter(c -> !LoginUtils.COOKIE_NAME.equals(c.getName())).toArray(Cookie[]::new);
-    }
-
   }
 
 }

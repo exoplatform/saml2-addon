@@ -24,13 +24,13 @@ import jakarta.servlet.ServletContext;
  */
 public class SamlLoginParamsExtension implements UIParamsExtension {
 
-  private static final Log LOG                       = ExoLogger.getLogger(SamlLoginParamsExtension.class);
-
   public static final String ENABLED_PARAM          = "enabled";
 
   public static final String SAML_LOGIN_ENABLED     = "samlLoginEnabled";
 
   public static final String SAML_LOGIN_URL         = "samlLoginUrl";
+
+  private static final Log LOG                       = ExoLogger.getLogger(SamlLoginParamsExtension.class);
 
   private final boolean    enabled;
 
@@ -55,6 +55,18 @@ public class SamlLoginParamsExtension implements UIParamsExtension {
     return Collections.singletonList(LoginHandler.LOGIN_EXTENSION_NAME);
   }
 
+  @Override
+  public Map<String, Object> extendParameters(ControllerContext controllerContext, String extensionName) {
+    if (!enabled) {
+      return null; // NOSONAR
+    }
+    Map<String, Object> params = new HashMap<>();
+    params.put(SAML_LOGIN_ENABLED, true);
+    params.put(SAML_LOGIN_URL, getPortalContextPath(controllerContext) + ssoHelper.getSSORedirectURLSuffix());
+    params.put("extendedAuthProviderType", "saml");
+    return params;
+  }
+
   /**
    * The context path of the portal web application, where the SSO URL lives.
    * Not the one of the request: the login page is rendered by another web
@@ -69,18 +81,6 @@ public class SamlLoginParamsExtension implements UIParamsExtension {
     ServletContext portalContext = container == null ? null : container.getPortalContext();
     return portalContext == null ? controllerContext.getRequest().getServletContext().getContextPath()
                                  : portalContext.getContextPath();
-  }
-
-  @Override
-  public Map<String, Object> extendParameters(ControllerContext controllerContext, String extensionName) {
-    if (!enabled) {
-      return null; // NOSONAR
-    }
-    Map<String, Object> params = new HashMap<>();
-    params.put(SAML_LOGIN_ENABLED, true);
-    params.put(SAML_LOGIN_URL, getPortalContextPath(controllerContext) + ssoHelper.getSSORedirectURLSuffix());
-    params.put("extendedAuthProviderType", "saml");
-    return params;
   }
 
 }

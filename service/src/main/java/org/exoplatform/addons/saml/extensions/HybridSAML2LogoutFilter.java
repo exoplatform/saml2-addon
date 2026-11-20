@@ -22,6 +22,14 @@ import jakarta.servlet.http.HttpSession;
  * would end on a blank page and leave the session half logged out. Those
  * users get the regular portal logout instead.
  * <p>
+ * Known limit: a session counts as a SAML one only through the marker the
+ * SAML workflow writes in the portal session. When that session expires while
+ * the user keeps a session in another web application (REST, WebDAV),
+ * Tomcat's single sign-on valve signs the user back in to a new portal
+ * session that has no marker: that user then gets the regular portal logout,
+ * and the session at the IDP stays open, so the next SAML login needs no
+ * password.
+ * <p>
  * Configure it with
  * {@code gatein.sso.filter.logout.class=org.exoplatform.addons.saml.extensions.HybridSAML2LogoutFilter}
  */

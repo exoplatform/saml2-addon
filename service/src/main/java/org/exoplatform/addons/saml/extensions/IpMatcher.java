@@ -35,7 +35,7 @@ public class IpMatcher {
 
   private static final Pattern SPACED_OPERATORS = Pattern.compile("\\s*([-/])\\s*");
 
-  private final List<Range>    ranges           = new ArrayList<>();
+  private final List<IpRange>  ranges           = new ArrayList<>();
 
   private final List<String>   accepted         = new ArrayList<>();
 
@@ -77,7 +77,7 @@ public class IpMatcher {
     }
     byte[] bytes = toBytes(normalizeClientAddress(address));
     BigInteger value = new BigInteger(1, bytes);
-    return ranges.stream().anyMatch(r -> r.length == bytes.length && r.low.compareTo(value) <= 0 && r.high.compareTo(value) >= 0);
+    return ranges.stream().anyMatch(r -> r.length() == bytes.length && r.low().compareTo(value) <= 0 && r.high().compareTo(value) >= 0);
   }
 
   /**
@@ -107,63 +107,6 @@ public class IpMatcher {
     return zone > 0 ? value.substring(0, zone) : value;
   }
 
-  private static Range parse(String entry) {
-    int slash = entry.indexOf('/');
-    int dash = entry.indexOf('-');
-    if (slash > 0) {
-      String host = entry.substring(0, slash);
-      byte[] base = toBytes(host);
-      int bits = base.length * 8;
-      int prefix;
-      try {
-        prefix = Integer.parseInt(entry.substring(slash + 1));
-      } catch (NumberFormatException e) {
-        throw new IllegalArgumentException("invalid prefix length");
-      }
-      if (host.indexOf(':') >= 0 && base.length == 4) {
-        // An IPv4-mapped IPv6 address is an IPv4 address: its prefix counts the 96 leading bits
-        if (prefix < 96) {
-          throw new IllegalArgumentException("the prefix of an IPv4-mapped IPv6 address is at least 96");
-        }
-        prefix -= 96;
-      }
-      if (prefix < 0 || prefix > bits) {
-        throw new IllegalArgumentException("prefix length out of range");
-      }
-      BigInteger hostMask = BigInteger.ONE.shiftLeft(bits - prefix).subtract(BigInteger.ONE);
-      BigInteger low = new BigInteger(1, base).andNot(hostMask);
-      return new Range(base.length, low, low.or(hostMask));
-    } else if (dash > 0) {
-      byte[] low = toBytes(entry.substring(0, dash));
-      byte[] high = toBytes(entry.substring(dash + 1));
-      if (low.length != high.length) {
-        throw new IllegalArgumentException("range mixes IPv4 and IPv6");
-      }
-      BigInteger lowValue = new BigInteger(1, low);
-      BigInteger highValue = new BigInteger(1, high);
-      if (lowValue.compareTo(highValue) > 0) {
-        throw new IllegalArgumentException("range start is after its end");
-      }
-      return new Range(low.length, lowValue, highValue);
-    }
-    byte[] single = toBytes(entry);
-    BigInteger value = new BigInteger(1, single);
-    return new Range(single.length, value, value);
-  }
-
-  private static byte[] toBytes(String literal) {
-    if (!isLiteral(literal)) {
-      throw new IllegalArgumentException("not an IP address literal");
-    }
-    try {
-      // A validated literal never triggers a DNS lookup. IPv4-mapped IPv6
-      // addresses are returned as IPv4 addresses
-      return InetAddress.getByName(literal).getAddress();
-    } catch (UnknownHostException e) {
-      throw new IllegalArgumentException("not an IP address literal");
-    }
-  }
-
   /**
    * Strict syntax check, done before any {@link InetAddress} call: a string
    * that is not a valid literal would be taken for a host name and sent to the
@@ -188,7 +131,61 @@ public class IpMatcher {
     }
   }
 
-  private record Range(int length, BigInteger low, BigInteger high) {
+  private static IpRange parse(String entry) {
+    int slash = entry.indexOf('/');
+    int dash = entry.indexOf('-');
+    if (slash > 0) {
+      String host = entry.substring(0, slash);
+      byte[] base = toBytes(host);
+      int bits = base.length * 8;
+      int prefix;
+      try {
+        prefix = Integer.parseInt(entry.substring(slash + 1));
+      } catch (NumberFormatException e) {
+        throw new IllegalArgumentException("invalid prefix length");
+      }
+      if (host.indexOf(':') >= 0 && base.length == 4) {
+        // An IPv4-mapped IPv6 address is an IPv4 address: its prefix counts the 96 leading bits
+        if (prefix < 96) {
+          throw new IllegalArgumentException("the prefix of an IPv4-mapped IPv6 address is at least 96");
+        }
+        prefix -= 96;
+      }
+      if (prefix < 0 || prefix > bits) {
+        throw new IllegalArgumentException("prefix length out of range");
+      }
+      BigInteger hostMask = BigInteger.ONE.shiftLeft(bits - prefix).subtract(BigInteger.ONE);
+      BigInteger low = new BigInteger(1, base).andNot(hostMask);
+      return new IpRange(base.length, low, low.or(hostMask));
+    } else if (dash > 0) {
+      byte[] low = toBytes(entry.substring(0, dash));
+      byte[] high = toBytes(entry.substring(dash + 1));
+      if (low.length != high.length) {
+        throw new IllegalArgumentException("range mixes IPv4 and IPv6");
+      }
+      BigInteger lowValue = new BigInteger(1, low);
+      BigInteger highValue = new BigInteger(1, high);
+      if (lowValue.compareTo(highValue) > 0) {
+        throw new IllegalArgumentException("range start is after its end");
+      }
+      return new IpRange(low.length, lowValue, highValue);
+    }
+    byte[] single = toBytes(entry);
+    BigInteger value = new BigInteger(1, single);
+    return new IpRange(single.length, value, value);
+  }
+
+  private static byte[] toBytes(String literal) {
+    if (!isLiteral(literal)) {
+      throw new IllegalArgumentException("not an IP address literal");
+    }
+    try {
+      // A validated literal never triggers a DNS lookup. IPv4-mapped IPv6
+      // addresses are returned as IPv4 addresses
+      return InetAddress.getByName(literal).getAddress();
+    } catch (UnknownHostException e) {
+      throw new IllegalArgumentException("not an IP address literal");
+    }
   }
 
 }

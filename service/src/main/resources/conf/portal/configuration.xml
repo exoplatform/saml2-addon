@@ -43,4 +43,26 @@
       </init-params>
     </component-plugin>
   </external-component-plugins>
+  <external-component-plugins>
+    <target-component>org.exoplatform.services.cache.CacheService</target-component>
+    <component-plugin>
+      <name>addExoCacheConfig</name>
+      <set-method>addExoCacheConfig</set-method>
+      <type>org.exoplatform.services.cache.ExoCacheConfigPlugin</type>
+      <description>The pages asked for before the SAML sign-in, kept under the RelayState of the request to the IDP</description>
+      <init-params>
+        <object-param>
+          <name>saml.relaystate</name>
+          <description>The cache configuration for the pages asked for before the SAML sign-in</description>
+          <object type="org.exoplatform.services.cache.impl.infinispan.generic.GenericExoCacheConfig">
+            <field name="name"><string>saml.relaystate</string></field>
+            <field name="strategy" profiles="cluster"><string>${exo.cache.saml.relaystate.strategy:LIRS}</string></field>
+            <field name="maxSize"><int>${exo.cache.saml.relaystate.MaxNodes:10000}</int></field>
+            <field name="liveTime"><long>${exo.cache.saml.relaystate.TimeToLive:600}</long></field>
+            <field name="cacheMode" profiles="cluster"><string>${exo.cache.saml.relaystate.cacheMode:replication}</string></field>
+          </object>
+        </object-param>
+      </init-params>
+    </component-plugin>
+  </external-component-plugins>
 </configuration>
